@@ -1,69 +1,82 @@
-import Image from "next/image";
+/* ==========================================================
+ * app/page.tsx — Home page (URL: "/")
+ * ----------------------------------------------------------
+ * PLAIN ENGLISH: The first page visitors see: a short intro and
+ *   a list of projects I have built.
+ * LOGIC: Store my projects in a list (array) → pass that list
+ *   to <ProjectList>, which shows a <ProjectCard> for each one.
+ * WHY WE NEED IT: Shows real work to teachers, teammates, and
+ *   future employers.
+ * LEARNING GAP:
+ *   - In the App Router, the FILE LOCATION decides the URL:
+ *     app/page.tsx = "/" (home).
+ *   - The data lives here for now. In later weeks it will come
+ *     from a database (the same idea as your CSE 341 Books API).
+ *   - Server Component: no 'use client'.
+ * ========================================================== */
 
+/* ----------------------------------------------------------
+ * Import ProjectList
+ * PLAIN ENGLISH: Bring in the list component.
+ * LOGIC: "@/" = shortcut for the project's top folder
+ *   (the import alias "@/*" set up when the app was created).
+ * WHY WE NEED IT: The page reuses the component instead of
+ *   rebuilding cards by hand.
+ * LEARNING GAP: "@/components/ProjectList" works from ANY
+ *   folder, so there's no counting "../../" levels.
+ * ---------------------------------------------------------- */
+import ProjectList from '@/components/ProjectList';
+
+/* ----------------------------------------------------------
+ * My projects (the data)
+ * PLAIN ENGLISH: Real projects I built, each with a title,
+ *   description, technologies, and a link.
+ * LOGIC: An array of objects. Each object's fields match the
+ *   Project interface in ProjectList.tsx.
+ * WHY WE NEED IT: The assignment requires at least two real
+ *   projects with accurate descriptions and working links.
+ * LEARNING GAP: If a field name is misspelled (for example
+ *   "techs" instead of "technologies"), TypeScript shows an
+ *   error. That's the type checking working for you.
+ * ---------------------------------------------------------- */
+const projects = [
+  {
+    title: 'Shuffle My Style',
+    description:
+      'A closet outfit shuffler that mixes and matches clothes you already own. Users add items by category and color, shuffle three outfit ideas, see style inspiration photos, save favorites, and track how often each outfit is worn.',
+    technologies: ['HTML', 'CSS', 'JavaScript (ES Modules)', 'localStorage', 'Unsplash API'],
+    link: 'https://github.com/SMcBraun/shuffle-my-style',
+  },
+  {
+    title: 'Service Projects Website',
+    description:
+      'A full-stack site for organizations and their community service projects, with user registration and login, admin-only pages, and a volunteer sign-up feature.',
+    technologies: ['Node.js', 'Express', 'EJS', 'PostgreSQL', 'bcrypt', 'Render'],
+    link: 'https://github.com/SMcBraun/cse340-course-repo',
+  },
+];
+
+/* ----------------------------------------------------------
+ * Home page component
+ * PLAIN ENGLISH: The page layout: heading, intro, project list.
+ * LOGIC: <ProjectList projects={projects} /> passes the array
+ *   into the component as a prop.
+ * WHY WE NEED IT: Next.js shows whatever this function returns
+ *   at "/".
+ * LEARNING GAP: The intro says "I am" instead of "I'm" on
+ *   purpose. Next.js's ESLint rules flag a plain apostrophe (')
+ *   in page text as an error.
+ * ---------------------------------------------------------- */
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+    <main className="container mx-auto px-4 py-12">
+      <section className="text-center py-12">
+        <h1 className="text-4xl font-bold mb-4">My Portfolio</h1>
+        <p className="text-lg text-gray-700">
+          I am a software development student learning full-stack web development with Next.js and React. Here are some of the projects I have built.
+        </p>
+      </section>
+      <ProjectList projects={projects} />
+    </main>
   );
 }
