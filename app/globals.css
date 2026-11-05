@@ -1,26 +1,55 @@
+/* ==========================================================
+ * app/globals.css — Site-wide styles and my color palette
+ * ----------------------------------------------------------
+ * PLAIN ENGLISH: Turns on Tailwind and sets MY brand colors and
+ *   fonts so every page uses the same island-sunrise look.
+ * LOGIC: @theme creates new Tailwind class names from the
+ *   variables. Example: --color-coral → bg-coral, text-coral,
+ *   border-coral. --font-heading → font-heading.
+ * WHY WE NEED IT: Colors and fonts are set ONCE here. Change a
+ *   color here and every page updates.
+ * LEARNING GAP:
+ *   - The "-dark" colors are for TEXT and BUTTONS. They are dark
+ *     enough to pass Lighthouse color-contrast checks.
+ *   - The light colors (coral, lagoon, sunny) are for decoration
+ *     only: stripes, glows, and small dots.
+ *   - The dark-mode block was removed on purpose so the site
+ *     always looks bright and sunny.
+ * ========================================================== */
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* Brand colors */
+  --color-coral: #ff7a66;
+  --color-coral-dark: #a63a2a;
+  --color-blush: #ffe4de;
+  --color-lagoon: #2bb3c0;
+  --color-lagoon-dark: #0b6e78;
+  --color-mist: #e6f6f7;
+  --color-sunny: #ffc94d;
+  --color-sand: #fff8ef;
+  --color-ink: #1f2a44;
+
+  /* Brand fonts (loaded in app/layout.tsx) */
+  --font-heading: var(--font-poppins);
+  --font-sans: var(--font-open-sans);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ----------------------------------------------------------
+ * Page background and text
+ * PLAIN ENGLISH: Warm sand background, dark navy text.
+ * LOGIC: Plain CSS on <body>. The colors are typed as hex codes
+ *   (sand #fff8ef, ink #1f2a44) so they always work here.
+ * WHY WE NEED IT: Softer and friendlier than plain white.
+ * LEARNING GAP: scroll-behavior: smooth makes the "See my
+ *   projects" button glide down instead of jumping.
+ * ---------------------------------------------------------- */
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: #fff8ef;
+  color: #1f2a44;
+  font-family: var(--font-open-sans), Arial, Helvetica, sans-serif;
 }

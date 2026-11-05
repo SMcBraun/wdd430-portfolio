@@ -57,15 +57,17 @@ interface ProjectListProps {
  * WHY WE NEED IT: Adding a project = adding data, not code.
  * LEARNING GAP:
  *   - Forgetting "key" causes a warning in the browser console.
- *   - grid gap-4 md:grid-cols-2 = 1 column on phones,
- *     2 columns on medium+ screens (responsive design).
+ *   - grid md:grid-cols-2 lg:grid-cols-3 = 1 column on phones,
+ *     2 on tablets, 3 on laptops (responsive design).
+ *   - A <div> (not <section>) wraps the cards, because the Home
+ *     page already puts them inside a <section> with a heading.
  * ---------------------------------------------------------- */
 export default function ProjectList({ projects }: ProjectListProps) {
     return (
-        <section className="grid gap-4 md:grid-cols-2">
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {projects.map((project) => (
                 <ProjectCard key={project.title} {...project} />
             ))}
-        </section>
+        </div>
     );
 }

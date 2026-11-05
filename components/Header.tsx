@@ -1,9 +1,10 @@
 /* ==========================================================
  * components/Header.tsx — Site header with navigation
  * ----------------------------------------------------------
- * PLAIN ENGLISH: The top bar on every page. Shows my name and
- *   links to the Home and About pages.
- * LOGIC: Import Next.js Link → return a <header> with my name
+ * PLAIN ENGLISH: The top bar on every page. A sunrise color
+ *   stripe, my "SM" logo bubble and name, and links to the Home
+ *   and About pages.
+ * LOGIC: Import Next.js Link → return a <header> with my logo
  *   and a <nav> list of two links.
  * WHY WE NEED IT: Visitors need a consistent way to move
  *   between pages. Built once, used on every page through
@@ -18,38 +19,47 @@
  * Import Link
  * PLAIN ENGLISH: Bring in Next.js's special link tool.
  * LOGIC: Default import from the 'next/link' package.
- * WHY WE NEED IT: Fast page-to-page navigation inside the app.
- * LEARNING GAP: href="/" = app/page.tsx (Home).
- *   href="/about" = app/about/page.tsx (About).
- *   The folder name decides the URL (App Router).
+ * WHY WE NEED IT: Fast page-to-page navigation.
+ * LEARNING GAP: "next/link" is built into Next.js, so there is
+ *   nothing extra to install.
  * ---------------------------------------------------------- */
 import Link from 'next/link';
 
 /* ----------------------------------------------------------
  * Header component
- * PLAIN ENGLISH: Returns the header's HTML-like markup (JSX).
- * LOGIC: "export default function" makes it importable by name
- *   in other files (import Header from '@/components/Header').
- * WHY WE NEED IT: Reusable across every page.
- * LEARNING GAP:
- *   - JSX uses className (not class) for CSS classes.
- *   - Tailwind classes, plain English:
- *     bg-blue-600 = blue background, text-white = white text,
- *     py-4 = padding top/bottom, shadow-md = soft shadow,
- *     text-2xl font-bold = big bold text,
- *     max-w-4xl mx-auto = limit width and center it,
- *     flex gap-6 = put items in a row with space between.
- *   - Semantic tags (<header>, <nav>, <ul>/<li>) help screen
- *     readers and accessibility scores (Lighthouse).
+ * PLAIN ENGLISH: Stripe on top, logo on the left, links on the
+ *   right.
+ * LOGIC:
+ *   - The thin top <div> uses a gradient: coral → sunny → lagoon.
+ *   - "sticky top-0" keeps the header visible while scrolling.
+ *   - "bg-white/90 backdrop-blur" = slightly see-through white
+ *     with a soft blur behind it.
+ * WHY WE NEED IT: A friendly, branded first impression.
+ * LEARNING GAP: aria-hidden="true" hides decoration (the stripe)
+ *   from screen readers, so they only read real content.
  * ---------------------------------------------------------- */
 export default function Header() {
     return (
-        <header className="bg-blue-600 text-white py-4 shadow-md">
-            <div id="header-title" className="max-w-4xl mx-auto px-4 text-2xl font-bold">Sina McBraun</div>
-            <nav className="max-w-4xl mx-auto px-4 mt-2 flex justify-between items-center">
-                <ul className="flex gap-6">
-                    <li><Link href="/" className="hover:underline">Home</Link></li>
-                    <li><Link href="/about" className="hover:underline">About</Link></li>
+        <header className="sticky top-0 z-20 bg-white/90 backdrop-blur shadow-sm">
+            <div aria-hidden="true" className="h-1.5 bg-gradient-to-r from-coral via-sunny to-lagoon" />
+            <nav className="max-w-5xl mx-auto px-4 py-3 flex justify-between items-center">
+                <Link href="/" className="flex items-center gap-3 group">
+                    <span className="grid place-items-center w-10 h-10 rounded-full bg-gradient-to-br from-coral to-sunny text-ink font-heading font-bold shadow-md group-hover:scale-110 transition">
+                        SM
+                    </span>
+                    <span className="font-heading text-xl font-bold text-ink">Sina McBraun</span>
+                </Link>
+                <ul className="flex gap-2 font-heading font-semibold">
+                    <li>
+                        <Link href="/" className="px-4 py-2 rounded-full text-ink hover:bg-mist hover:text-lagoon-dark transition">
+                            Home
+                        </Link>
+                    </li>
+                    <li>
+                        <Link href="/about" className="px-4 py-2 rounded-full text-ink hover:bg-blush hover:text-coral-dark transition">
+                            About
+                        </Link>
+                    </li>
                 </ul>
             </nav>
         </header>
