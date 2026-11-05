@@ -57,7 +57,7 @@ const projects = [
     description:
       'A full-stack site for organizations and their community service projects, with user registration and login, admin-only pages, and a volunteer sign-up feature.',
     technologies: ['Node.js', 'Express', 'EJS', 'PostgreSQL', 'bcrypt', 'Render'],
-    link: 'https://cse340-smcbraun.onrender.com',
+    link: 'https://github.com/SMcBraun/cse340-course-repo',
   },
   {
     title: 'Conference Compass',
